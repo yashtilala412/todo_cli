@@ -5,7 +5,7 @@ import (
 	"sort"
 	"time"
 
-	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/task"
+	"todo_cli/task"
 )
 
 // ListTasks prints all tasks with their status.
@@ -48,4 +48,3 @@ func ListTasks() {
 	}
 
 }
-

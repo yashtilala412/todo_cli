@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/cmd"
+	"todo_cli/cmd"
 )
 
 func main() {
@@ -48,4 +48,3 @@ func main() {
 		fmt.Println("Invalid command. Available commands: add, list")
 	}
 }
-

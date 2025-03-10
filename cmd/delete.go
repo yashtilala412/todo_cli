@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/task"
+	"todo_cli/task"
 )
 
 // DeleteTask removes a task by its ID

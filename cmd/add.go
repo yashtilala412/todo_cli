@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/task"
+	"todo_cli/task"
 )
 
 // validateDate checks if the due date is in the correct format (YYYY-MM-DD)

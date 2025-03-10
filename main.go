@@ -30,7 +30,18 @@ func main() {
 	case "list":
 		cmd.ListTasks()
 
+	case "complete":
+		cmd.CompleteTask(os.Args[2])
+
+	case "delete":
+		if len(os.Args) < 3 {
+			fmt.Println("Usage: go run main.go delete <task_id>")
+			return
+		}
+		cmd.DeleteTask(os.Args[2])
+
 	default:
 		fmt.Println("Invalid command. Available commands: add, list")
 	}
 }
+

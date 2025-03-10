@@ -8,10 +8,12 @@ import (
 )
 
 func main() {
+
 	if len(os.Args) < 2 {
 		fmt.Println("Usage: go run main.go [add|list]")
 		return
 	}
+	cmd.StartReminderSystem() // Run the reminder system in the background
 
 	command := os.Args[1]
 
@@ -39,6 +41,8 @@ func main() {
 			return
 		}
 		cmd.DeleteTask(os.Args[2])
+	case "remind":
+		fmt.Println("Reminder system started in the background.")
 
 	default:
 		fmt.Println("Invalid command. Available commands: add, list")

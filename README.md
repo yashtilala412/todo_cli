@@ -26,11 +26,11 @@ cd todo-cli
 ```
 ### 2️⃣ Initialize Go Module
 ```sh
-go mod init todo_cli
+go mod init git.pride.improwised.dev/Onboarding-2025/Yash-Tilala
 go mod tidy
 ```
 
-###3️⃣ Run the CLI
+### 3️⃣ Run the CLI
 ```sh
 go run main.go [command]
 

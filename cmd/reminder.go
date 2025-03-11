@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/task"
+	"todo_cli/task"
 )
 
 // StartReminderSystem runs a background goroutine to check for due tasks daily

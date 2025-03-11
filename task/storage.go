@@ -47,8 +47,19 @@ func LoadTasks() ([]Task, error) {
 
 // SaveTasks writes tasks to JSON file and updates cache
 func SaveTasks(tasks []Task) error {
-	cacheLock.Lock()
-	defer cacheLock.Unlock()
+	// Ensure the data directory exists
+	if err := os.MkdirAll("data", os.ModePerm); err != nil {
+		return err
+	}
+
+	// Ensure the tasks.json file exists
+	if _, err := os.Stat(dataFile); os.IsNotExist(err) {
+		emptyFile, err := os.Create(dataFile)
+		if err != nil {
+			return err
+		}
+		emptyFile.Close() // Close the file after creation
+	}
 
 	taskCache = tasks
 	data, err := json.MarshalIndent(tasks, "", "  ")

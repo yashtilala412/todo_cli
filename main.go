@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"todo_cli/cmd"
+	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/cmd"
 )
 
 func main() {
@@ -42,8 +42,7 @@ func main() {
 		}
 		cmd.DeleteTask(os.Args[2])
 	case "remind":
-		fmt.Println("Reminder system started in the background.")
-
+		cmd.StartReminderSystem()
 	default:
 		fmt.Println("Invalid command. Available commands: add, list")
 	}

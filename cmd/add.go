@@ -6,20 +6,14 @@ import (
 	"strings"
 	"time"
 
-	"todo_cli/task"
+	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/task"
 )
 
-// validateDate checks if the due date is in the correct format (YYYY-MM-DD)
-func validateDate(dateStr string) bool {
-	_, err := time.Parse("2006-01-02", dateStr)
-	return err == nil
-}
-
-// validatePriority ensures the priority is between 1 and 5
+// validatePriority ensures the priority is a valid integer >= 1
 func validatePriority(priority string) (int, error) {
 	p, err := strconv.Atoi(priority)
-	if err != nil || p < 1 || p > 5 {
-		return 0, fmt.Errorf("priority must be a number between 1 and 5")
+	if err != nil || p < 1 {
+		return 0, fmt.Errorf("priority must be a positive number")
 	}
 	return p, nil
 }
@@ -39,6 +33,13 @@ func AddTask(description, dueDate, priority string) {
 		return
 	}
 
+	// Validate due date using Go's time.Parse (YYYY-MM-DD format)
+	_, err = time.Parse("2006-01-02", dueDate)
+	if err != nil {
+		fmt.Println("Error: Invalid due date format. Please use YYYY-MM-DD.")
+		return
+	}
+
 	// Convert and validate priority
 	p, err := validatePriority(priority)
 	if err != nil {
@@ -47,17 +48,18 @@ func AddTask(description, dueDate, priority string) {
 	}
 
 	// Assign unique ID
-	newID := 1
+	var newID int
 	if len(tasks) > 0 {
-		newID = tasks[len(tasks)-1].ID + 1
+		newID = tasks[len(tasks)-1].ID
 	}
+	newID++ // Increment to get the next ID
 
 	// Create new task
 	newTask := task.Task{
 		ID:          newID,
 		Description: description,
 		Completed:   false,
-		Priority:    p, // Now priority is an int
+		Priority:    p, // Priority is an integer
 		DueDate:     dueDate,
 	}
 
@@ -69,5 +71,5 @@ func AddTask(description, dueDate, priority string) {
 		return
 	}
 
-	fmt.Println("✅ Task added successfully!")
+	fmt.Println("Task added successfully!")
 }

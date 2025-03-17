@@ -2,21 +2,16 @@ package cmd
 
 import (
 	"fmt"
-	"time"
 
 	"git.pride.improwised.dev/Onboarding-2025/Yash-Tilala/task"
 )
 
+// StartReminderSystem prints all due tasks and exits
 func StartReminderSystem() {
-
 	printDueTasks()
-	go func() {
-		for {
-			time.Sleep(24 * time.Hour) // Wait for a day
-			printDueTasks()            // Check and display tasks again
-		}
-	}()
 }
+
+// printDueTasks prints all pending tasks regardless of due date
 func printDueTasks() {
 	tasks, err := task.LoadTasks()
 	if err != nil {
@@ -24,16 +19,17 @@ func printDueTasks() {
 		return
 	}
 
-	today := time.Now().Format("2006-01-02")
-	dueTasksFound := false
+	pendingTasksFound := false
 
 	for _, t := range tasks {
-		if !t.Completed && t.DueDate == today {
-			fmt.Printf("Reminder: Task '%s' is due today! (%s)\n", t.Description, t.DueDate)
-			dueTasksFound = true
+		if !t.Completed {
+			fmt.Printf("Reminder: Task '%s' is pending! Due Date: %s\n", t.Description, t.DueDate)
+			pendingTasksFound = true
 		}
 	}
-	if !dueTasksFound {
-		fmt.Println("No tasks are due today.")
+
+	if !pendingTasksFound {
+		fmt.Println("No pending tasks.")
 	}
 }
+

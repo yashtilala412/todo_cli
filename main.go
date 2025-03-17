@@ -8,25 +8,22 @@ import (
 )
 
 func main() {
-
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go [add|list]")
+		fmt.Println("Usage: go run main.go [add|list|complete|delete|remind]")
 		return
 	}
-	cmd.StartReminderSystem() // Run the reminder system in the background
 
 	command := os.Args[1]
 
 	switch command {
 	case "add":
-		if len(os.Args) < 5 { // Ensure enough arguments
+		if len(os.Args) < 5 {
 			fmt.Println("Usage: go run main.go add <description> <due_date> <priority>")
 			return
 		}
 		description := os.Args[2]
 		dueDate := os.Args[3]
 		priority := os.Args[4]
-
 		cmd.AddTask(description, dueDate, priority)
 
 	case "list":
@@ -41,9 +38,13 @@ func main() {
 			return
 		}
 		cmd.DeleteTask(os.Args[2])
+
 	case "remind":
+
 		cmd.StartReminderSystem()
+
 	default:
-		fmt.Println("Invalid command. Available commands: add, list")
+		fmt.Println("Invalid command. Available commands: add, list, complete, delete, remind")
 	}
 }
+

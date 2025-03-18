@@ -30,6 +30,10 @@ func main() {
 		cmd.ListTasks()
 
 	case "complete":
+	        if len(os.Args) < 3 { // Check if task ID is missing
+			fmt.Println("Error: Task ID is missing. Usage: complete <task_id>")
+			return
+		}
 		cmd.CompleteTask(os.Args[2])
 
 	case "delete":

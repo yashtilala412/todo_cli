@@ -45,4 +45,10 @@ func CompleteTask(idStr string) {
 	}
 
 	fmt.Printf("Task ID %d marked as completed!\n", id)
+	fmt.Printf("\n%-4s %-10s %-30s %-10s %-12s\n", "ID", "Status", "Task", "Priority", "Due Date")
+
+	// Print Completed Task Details
+	t := tasks[id-1]
+	fmt.Printf("%-4d %-10s %-30s %-10d %-12s\n", id, "Completed", t.Description, t.Priority, t.DueDate)
 }
+

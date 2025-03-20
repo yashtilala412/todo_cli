@@ -9,28 +9,28 @@ import (
 )
 
 // ListTasks prints all tasks with their status.
+// ListTasks prints all tasks with their status.
 func ListTasks() {
 	tasks, err := task.LoadTasks()
 	if err != nil {
 		fmt.Println("Error loading tasks:", err)
 		return
 	}
-	sort.SliceStable(tasks, func(i, j int) bool {
-		// First, compare priority (higher is better)
-		if tasks[i].Priority != tasks[j].Priority {
-			return tasks[i].Priority < tasks[j].Priority
+	sort.SliceStable(tasks, func(primary, secondary int) bool {
+
+		if tasks[primary].Priority != tasks[secondary].Priority {
+			return tasks[primary].Priority < tasks[secondary].Priority
 		}
 
-		// If priority is the same, compare due dates (earlier is better)
-		dateI, errI := time.Parse("2006-01-02", tasks[i].DueDate)
-		dateJ, errJ := time.Parse("2006-01-02", tasks[j].DueDate)
+		dueDatePrimary, errPrimary := time.Parse("2006-01-02", tasks[primary].DueDate)
+		dueDateSecondary, errSecondary := time.Parse("2006-01-02", tasks[secondary].DueDate)
 
 		// If due date format is invalid, keep original order
-		if errI != nil || errJ != nil {
+		if errPrimary != nil || errSecondary != nil {
 			return false
 		}
 
-		return dateI.Before(dateJ) // Earlier due date first
+		return dueDatePrimary.Before(dueDateSecondary)
 	})
 
 	if len(tasks) == 0 {
@@ -38,13 +38,15 @@ func ListTasks() {
 		return
 	}
 
-	fmt.Println("Your Tasks:")
+	// Print Header Row
+	fmt.Printf("\n%-4s %-10s %-30s %-10s %-12s\n", "SrNo", "Status", "Task", "Priority", "Due Date")
+
+	// Print Task List
 	for i, t := range tasks {
 		status := "Pending"
 		if t.Completed {
 			status = "Completed"
 		}
-		fmt.Printf("%d. %-12s %-30s Priority: %d  Due: %s\n", i+1, status, t.Description, t.Priority, t.DueDate)
+		fmt.Printf("%-4d %-10s %-30s %-10d %-12s\n", i+1, status, t.Description, t.Priority, t.DueDate)
 	}
-
 }
